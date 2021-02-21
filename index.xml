@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Jan 2020 21:16:37 -0700</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World, Hello Hugo.</title>
+      <link>/posts/hello-world-hello-hugo/</link>
+      <pubDate>Thu, 02 Jan 2020 21:16:37 -0700</pubDate>
+      
+      <guid>/posts/hello-world-hello-hugo/</guid>
+      <description>The article is intented to demonstrate how is this website boostraped using Hugo. This blog is powered by a open source project named Hugo. Hugo is a static site generator written by Go. The project is well supported with 40.6k star and 4.6k fork as of early 2020. The article will provide insturction all the way from installation, pick a theme to deployment to AWS S3 manually.
+Install Hugo If you are running macOS, you can install Hugo simplily using brew.</description>
+    </item>
+    
+  </channel>
+</rss>
