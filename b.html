@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Modal Message</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+      * { box-sizing: border-box; } body {margin: 0;}body{font-family:Arial Black, Gadget, sans-serif, 'San Francisco', 'Roboto', Helvetica, Arial, sans-serif;}.bz-cell{display:flex;width:100%;}.bz-close-btn{box-sizing:content-box;background-color:transparent;border:none;width:15px;min-width:15px;min-height:15px;height:15px;cursor:pointer;display:block;font-size:15px;line-height:0;padding:15px;text-align:center;}.bz-close-btn:active{background-color:transparent;}.bz-close-btn:focus{background-color:transparent;}.bz-close-btn:hover{background-color:transparent;}.bz-close-btn:hover svg{fill-opacity:0.8;}.bz-close-btn svg{width:100%;height:100%;transition:0.2s ease;}.bz-img{max-width:100%;display:inline-block;}.bz-text{word-break:break-all;width:100%;padding:16px;}.bz-btn{box-sizing:border-box;border-radius:5px;box-shadow:none;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;height:44px;line-height:normal;letter-spacing:normal;margin:0;max-width:100%;width:100%;padding:0 12px;position:relative;text-transform:none;border:1px solid #1B78CF;background-color:#1B78CF;color:white;transition:0.2s ease;font-family:inherit;overflow:hidden;text-overflow:ellipsis;word-wrap:normal;white-space:nowrap;}.bz-btn:after{content:'';position:absolute;width:100%;height:100%;top:0;left:0;opacity:0;transition:0.2s ease;}.bz-btn:hover{opacity:0.8;}.bz-btn:active:after{background-color:rgba(0, 0, 0, 0.08);opacity:1;}.bz-btn:focus:after{background-color:rgba(0, 0, 0, 0.15);opacity:1;}.bz-btn a{color:inherit;text-decoration:inherit;}.bz-sctn{box-sizing:border-box;line-height:1.5;overflow-y:auto;width:100%;padding:0 25px;display:flex;flex-direction:column;align-items:center;}.bz-sctn::-webkit-scrollbar{-webkit-appearance:none;width:14px;}.bz-sctn::-webkit-scrollbar-thumb{-webkit-appearance:none;border:4px solid rgba(0, 0, 0, 0);background-clip:padding-box;border-radius:7px;background-color:rgba(0, 0, 0, 0.2);}.bz-sctn::-webkit-scrollbar-button{width:0;height:0;display:none;}.bz-sctn::-webkit-scrollbar-corner{background-color:transparent;}.bz-modal{align-items:center;background-color:white;border-radius:8px;box-shadow:0 0 4px rgba(0, 0, 0, 0.3);box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;min-height:100px;overflow:auto;position:relative;width:450px;max-width:450px;max-height:720px;text-align:center;}.bz-background{align-items:center;background-color:rgba(51, 51, 51, 0.75);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;}#io6d{height:auto;margin:0;}#i8iej{font-weight:700;font-size:20px;line-height:1.3;color:rgb(37, 37, 37);}#idmhi{padding:16px 8px 32px;}#iy3ms{background-color:rgb(255, 255, 255);border-color:#1B78CF;color:#1B78CF;height:44px;margin:0 12px;}#i1yhi{background-color:#1B78CF;border-color:#1B78CF;color:rgb(255, 255, 255);height:44px;margin:0 12px;}@media (max-height: 750px){.bz-modal{max-height:calc(100% - 30px);}}@media (max-width: 600px){.bz-modal{max-width:calc(100% - 30px);}}
+  </style>
+</head>
+<body>
+<div id="i72r1o"></div><div></div><div class="bz-background"><div class="bz-modal" role="dialog" aria-modal="true" aria-label="Modal Message"><div class="close-button-container bz-cell" id="io6d"><div class="bz-cell close-button-container-child"></div><div class="bz-cell close-button-container-child"></div><button type="button" class="bz-close-btn close-button-container-child" aria-label="Close Message" id="ilwd"><svg><svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15 1.5L13.5 0l-6 6-6-6L0 1.5l6 6-6 6L1.5 15l6-6 6 6 1.5-1.5-6-6 6-6z" fill="rgb(196,196,196)" />
+</svg></svg></button></div><div class="bz-sctn"><img alt="Modal Image" src="" id="ie52k" class="bz-img"/><div class="bz-text" id="i8iej">Header</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-text">Body</div><div class="bz-cell" id="idmhi"><button type="button" id="iy3ms" bz-onclick="[{&quot;trigger&quot;:{&quot;type&quot;:&quot;click&quot;},&quot;expression&quot;:null,&quot;brazeEvents&quot;:[{&quot;eventType&quot;:&quot;REDIRECT&quot;,&quot;value&quot;:{&quot;operator&quot;:&quot;LITERAL_VALUE&quot;,&quot;value&quot;:&quot;https://google.com/?abExternalOpen=false&quot;}},{&quot;eventType&quot;:&quot;CLOSE_MESSAGE&quot;}]}]" onclickContract="{&quot;action&quot;:&quot;REDIRECT_TO_URL&quot;,&quot;uri&quot;:&quot;https://google.com&quot;,&quot;useWebview&quot;:false}" class="bz-btn">Button 1</button><button type="button" id="i1yhi" bz-logclick="Button 2ww" class="bz-btn">Button 2</button></div></div></div></div><script>var items = document.querySelectorAll('#i72r1o');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    var triggerTypes = {
+      HTML_EVENT_CLICK: "click",
+      HTML_EVENT_MOUSEOVER: "mouseover",
+      HTML_EVENT_MOUSEOUT: "mouseout",
+      HTML_EVENT_MOUSE_FOCUS: "focus"
+    };
+    var expressionTypes = {
+      LITERAL_VALUE: "LITERAL_VALUE",
+      LIQUID_INPUT: "LIQUID_INPUT",
+      FETCH_HTML_VALUE: "FETCH_HTML_VALUE",
+      AND: "AND",
+      BLANK: "BLANK",
+      IS_NUMERIC: "IS_NUMERIC",
+      NOT: "NOT",
+      RANGE: "RANGE",
+      TRUTHY: "TRUTHY"
+    };
+    var brazeEventTypes = {
+      CLOSE_MESSAGE: "CLOSE_MESSAGE",
+      LOG_CLICK: "LOG_CLICK",
+      LOG_CUSTOM_EVENT: "LOG_CUSTOM_EVENT",
+      SET_COUNTRY: "SET_COUNTRY",
+      SET_FIRST_NAME: "SET_FIRST_NAME",
+      SHOW_FEED: "SHOW_FEED",
+      REDIRECT: "REDIRECT"
+    };
+
+    var addEventListenerByEventTraits = function addEventListenerByEventTraits(element, eventTraits) {
+      // Ensure that we never throw an exception, even if traits are not initialized for a component
+      if (!element || !eventTraits || eventTraits.length == 0) {
+        return;
+      }
+
+      return eventTraits.map(function (eventTrait) {
+        return window.htmlEventTraitHandler.addEventListenerByEventTrait(element, eventTrait);
+      });
+    };
+
+    var addEventListenerByEventTrait = function addEventListenerByEventTrait(element, eventTrait) {
+      switch (eventTrait.trigger.type) {
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_CLICK:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOUT:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOVER:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSE_FOCUS:
+          element.addEventListener(eventTrait.trigger.type, function () {
+            window.htmlEventTraitHandler.buildHtmlEventListenerCallback(eventTrait)();
+          });
+      }
+    };
+
+    var buildHtmlEventListenerCallback = function buildHtmlEventListenerCallback(eventTrait) {
+      return function () {
+        var expression = true;
+
+        if (eventTrait.expression) {
+          expression = window.htmlEventTraitHandler.expressionHelper.evalExpression(eventTrait.expression);
+        }
+
+        if (expression) {
+          window.htmlEventTraitHandler.brazeEventHelper.evalBrazeEventCallbacks(eventTrait.brazeEvents);
+        }
+      };
+    };
+
+    var evalExpression = function evalExpression(expression) {
+      return window.htmlEventTraitHandler.expressionHelper.buildExpressionCallback(expression)();
+    };
+
+    var buildExpressionCallback = function buildExpressionCallback(expression) {
+      switch (expression.operator) {
+        case window.htmlEventTraitHandler.expressionTypes.FETCH_HTML_VALUE:
+          return window.htmlEventTraitHandler.expressionHelper.buildFetchHTMLValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.AND:
+          return window.htmlEventTraitHandler.expressionHelper.buildAndExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.BLANK:
+          return window.htmlEventTraitHandler.expressionHelper.buildBlankExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.LITERAL_VALUE:
+        case window.htmlEventTraitHandler.expressionTypes.LIQUID_INPUT:
+          return window.htmlEventTraitHandler.expressionHelper.buildLiteralValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.TRUTHY:
+          return window.htmlEventTraitHandler.expressionHelper.buildTruthyValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.IS_NUMERIC:
+        case window.htmlEventTraitHandler.expressionTypes.NOT:
+        case window.htmlEventTraitHandler.expressionTypes.RANGE:
+          return function () {
+            return null;
+          };
+      }
+    };
+
+    var buildLiteralValueExpressionCallback = function buildLiteralValueExpressionCallback(expression) {
+      return function () {
+        return expression.value;
+      };
+    };
+
+    var buildFetchHTMLValueExpressionCallback = function buildFetchHTMLValueExpressionCallback(expression) {
+      return function () {
+        var collection = document.getElementsByClassName(expression.value);
+
+        if (collection.length > 0) {
+          return collection[0].innerHTML;
+        } else {
+          return null;
+        }
+      };
+    };
+
+    var buildAndExpressionCallback = function buildAndExpressionCallback(expression) {
+      return function () {
+        return expression.args.every(function (expression) {
+          return window.htmlEventTraitHandler.expressionHelper.evalExpression(expression);
+        });
+      };
+    };
+
+    var buildBlankExpressionCallback = function buildBlankExpressionCallback(expression) {
+      return function () {
+        var value = window.htmlEventTraitHandler.expressionHelper.evalExpression(expression.value);
+        return !value;
+      };
+    };
+
+    var buildTruthyValueExpressionCallback = function buildTruthyValueExpressionCallback(expression) {
+      return function () {
+        var value = window.htmlEventTraitHandler.expressionHelper.evalExpression(expression.value);
+        return !!value;
+      };
+    };
+
+    var evalBrazeEventCallbacks = function evalBrazeEventCallbacks(brazeEvents) {
+      window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventsCallbacks(brazeEvents).forEach(function (callback) {
+        callback();
+      });
+    };
+
+    var buildBrazeEventsCallbacks = function buildBrazeEventsCallbacks(brazeEvents) {
+      return brazeEvents.map(function (brazeEvent) {
+        return window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventCallBack(brazeEvent);
+      });
+    };
+
+    var buildBrazeEventCallBack = function buildBrazeEventCallBack(brazeEvent) {
+      switch (brazeEvent.eventType) {
+        case window.htmlEventTraitHandler.brazeEventTypes.SET_FIRST_NAME:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildSetFirstNameCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.CLOSE_MESSAGE:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildCloseMessageCallback();
+
+        case window.htmlEventTraitHandler.brazeEventTypes.LOG_CUSTOM_EVENT:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildLogCustomEventCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.REDIRECT:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildRedirectCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.LOG_CLICK:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildLogClickCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.SET_COUNTRY:
+        case window.htmlEventTraitHandler.brazeEventTypes.SHOW_FEED:
+        default:
+          return function () {
+            return null;
+          };
+      }
+    };
+
+    var buildSetFirstNameCallback = function buildSetFirstNameCallback(brazeEvent) {
+      return function () {
+        var firstName = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.getUser().setFirstName(firstName);
+      };
+    };
+
+    var buildCloseMessageCallback = function buildCloseMessageCallback() {
+      return function () {
+        window.appboyBridge.closeMessage();
+      };
+    };
+
+    var buildLogCustomEventCallback = function buildLogCustomEventCallback(brazeEvent) {
+      return function () {
+        var customEventName = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.logCustomEvent(customEventName);
+      };
+    };
+
+    var buildRedirectCallback = function buildRedirectCallback(brazeEvent) {
+      return function () {
+        window.top.location.href = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+      };
+    };
+
+    var buildLogClickCallback = function buildLogClickCallback(brazeEvent) {
+      return function () {
+        var clickIdentifier = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.logClick(clickIdentifier);
+      };
+    };
+
+    window.htmlEventTraitHandler = {
+      addEventListenerByEventTrait: addEventListenerByEventTrait,
+      addEventListenerByEventTraits: addEventListenerByEventTraits,
+      brazeEventTypes: brazeEventTypes,
+      buildHtmlEventListenerCallback: buildHtmlEventListenerCallback,
+      expressionTypes: expressionTypes,
+      triggerTypes: triggerTypes,
+      brazeEventHelper: {
+        evalBrazeEventCallbacks: evalBrazeEventCallbacks,
+        buildBrazeEventsCallbacks: buildBrazeEventsCallbacks,
+        buildBrazeEventCallBack: buildBrazeEventCallBack,
+        buildCloseMessageCallback: buildCloseMessageCallback,
+        buildLogCustomEventCallback: buildLogCustomEventCallback,
+        buildSetFirstNameCallback: buildSetFirstNameCallback,
+        buildRedirectCallback: buildRedirectCallback,
+        buildLogClickCallback: buildLogClickCallback
+      },
+      expressionHelper: {
+        evalExpression: evalExpression,
+        buildExpressionCallback: buildExpressionCallback,
+        buildFetchHTMLValueExpressionCallback: buildFetchHTMLValueExpressionCallback,
+        buildAndExpressionCallback: buildAndExpressionCallback,
+        buildBlankExpressionCallback: buildBlankExpressionCallback,
+        buildLiteralValueExpressionCallback: buildLiteralValueExpressionCallback,
+        buildTruthyValueExpressionCallback: buildTruthyValueExpressionCallback
+      }
+    };
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#ilwd');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    this.onclick = function () {
+      window.appboyBridge.requestImmediateDataFlush();
+      window.appboyBridge.closeMessage();
+    };
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#iy3ms, #i1yhi');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    var finalContract = [];
+    var onClickContract = this.getAttribute("bz-onclick");
+    var parsedOnClickContract = JSON.parse(onClickContract);
+    var logClickIdentifierValue = this.getAttribute("bz-logclick");
+
+    if (!parsedOnClickContract) {
+      // The 'bz-onclick' attribute is only added if the trait section is opened (ie, the component is selected).
+      // This ensures that the button closes the message at a minimum, even if we never render the trait section
+      finalContract = [{
+        trigger: {
+          type: "click"
+        },
+        expression: null,
+        brazeEvents: [{
+          eventType: "CLOSE_MESSAGE"
+        }]
+      }];
+    } else {
+      finalContract = parsedOnClickContract;
+    }
+
+    if (!logClickIdentifierValue) {
+      // Likewise, we need to be able to retrieve the text content of the button, even if it was never opened
+      // and in that case we also need to sanitize it and trim it if needed
+      var invalidCharacterRegex = new RegExp(/[^\w\d -]/g);
+      var sanitizedInput = this.textContent.replace(invalidCharacterRegex, "");
+
+      if (sanitizedInput.length > 250) {
+        sanitizedInput = sanitizedInput.substr(0, 250);
+      }
+
+      logClickIdentifierValue = sanitizedInput;
+    } // As a business rule, always log a click - either the button text or the saved value from the trait
+
+
+    finalContract[0].brazeEvents.unshift({
+      eventType: "LOG_CLICK",
+      value: {
+        operator: "LITERAL_VALUE",
+        value: logClickIdentifierValue
+      }
+    });
+    var element = this;
+    window.htmlEventTraitHandler.addEventListenerByEventTraits(element, finalContract);
+  }.bind(items[i]))();
+}</script>
+</body>
+</html>
