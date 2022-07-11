@@ -7,6 +7,96 @@
   <style>
       * { box-sizing: border-box; } body {margin: 0;}body{font-family:Arial Black, Gadget, sans-serif, 'San Francisco', 'Roboto', Helvetica, Arial, sans-serif;}.bz-cell{display:flex;width:100%;}.bz-close-btn{box-sizing:content-box;background-color:transparent;border:none;width:15px;min-width:15px;min-height:15px;height:15px;cursor:pointer;display:block;font-size:15px;line-height:0;padding:15px;text-align:center;}.bz-close-btn:active{background-color:transparent;}.bz-close-btn:focus{background-color:transparent;}.bz-close-btn:hover{background-color:transparent;}.bz-close-btn:hover svg{fill-opacity:0.8;}.bz-close-btn svg{width:100%;height:100%;transition:0.2s ease;}.bz-img{max-width:100%;display:inline-block;}.bz-text{word-break:break-all;width:100%;padding:16px;}.bz-btn{box-sizing:border-box;border-radius:5px;box-shadow:none;cursor:pointer;display:inline-block;font-size:14px;font-weight:bold;height:44px;line-height:normal;letter-spacing:normal;margin:0;max-width:100%;width:100%;padding:0 12px;position:relative;text-transform:none;border:1px solid #1B78CF;background-color:#1B78CF;color:white;transition:0.2s ease;font-family:inherit;overflow:hidden;text-overflow:ellipsis;word-wrap:normal;white-space:nowrap;}.bz-btn:after{content:'';position:absolute;width:100%;height:100%;top:0;left:0;opacity:0;transition:0.2s ease;}.bz-btn:hover{opacity:0.8;}.bz-btn:active:after{background-color:rgba(0, 0, 0, 0.08);opacity:1;}.bz-btn:focus:after{background-color:rgba(0, 0, 0, 0.15);opacity:1;}.bz-btn a{color:inherit;text-decoration:inherit;}.bz-sctn{box-sizing:border-box;line-height:1.5;overflow-y:auto;width:100%;padding:0 25px;display:flex;flex-direction:column;align-items:center;}.bz-sctn::-webkit-scrollbar{-webkit-appearance:none;width:14px;}.bz-sctn::-webkit-scrollbar-thumb{-webkit-appearance:none;border:4px solid rgba(0, 0, 0, 0);background-clip:padding-box;border-radius:7px;background-color:rgba(0, 0, 0, 0.2);}.bz-sctn::-webkit-scrollbar-button{width:0;height:0;display:none;}.bz-sctn::-webkit-scrollbar-corner{background-color:transparent;}.bz-modal{align-items:center;background-color:white;border-radius:8px;box-shadow:0 0 4px rgba(0, 0, 0, 0.3);box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;min-height:100px;overflow:auto;position:relative;width:450px;max-width:450px;max-height:720px;text-align:center;}.bz-background{align-items:center;background-color:rgba(51, 51, 51, 0.75);display:flex;height:100%;justify-content:center;left:0;position:fixed;top:0;width:100%;}#io6d{height:auto;margin:0;}#i8iej{font-weight:700;font-size:20px;line-height:1.3;color:rgb(37, 37, 37);}#idmhi{padding:16px 8px 32px;}#iy3ms{background-color:rgb(255, 255, 255);border-color:#1B78CF;color:#1B78CF;height:44px;margin:0 12px;}#i1yhi{background-color:#1B78CF;border-color:#1B78CF;color:rgb(255, 255, 255);height:44px;margin:0 12px;}@media (max-height: 750px){.bz-modal{max-height:calc(100% - 30px);}}@media (max-width: 600px){.bz-modal{max-width:calc(100% - 30px);}}
   </style>
+  <script type="text/javascript">
+    var stubPreloadStateForMethod = function(rootObject, rootObjectName, namespacedMethod) {
+      var stubLocation = rootObject;
+      namespacedMethod.forEach(function(namespaceChunk, i) {
+        if (i == namespacedMethod.length - 1) {
+          stubLocation[namespaceChunk] = function() {
+            throw new Error(
+              `${rootObjectName} is not yet defined. Please wait for the "ab.BridgeReady" event using window.addEventListener in order to use ${rootObjectName} directly upon showing the message.`
+            );
+          }
+        } else if (!stubLocation[namespaceChunk]) {
+          stubLocation[namespaceChunk] = {};
+        }
+        stubLocation = stubLocation[namespaceChunk];
+      });
+    };
+
+    var stubMethod = function(rootObject, rootObjectName, namespacedMethod) {
+      // When messages first load in the SDKs, the bridge is not yet defined, and the user must listen for the
+      // ab.BridgeReady event if attempting to use the bridge directly upon message load. This simulates that situation
+      // with improved guidance.
+      stubPreloadStateForMethod(rootObject, rootObjectName, namespacedMethod);
+
+      // Then next event loop define the "real" stub method as a passthrough to console.log
+      setTimeout(function() {
+        var fullName = rootObjectName;
+        var stubLocation = rootObject;
+        namespacedMethod.forEach(function(namespaceChunk, i) {
+          fullName += '.' + namespaceChunk;
+          if (i == namespacedMethod.length - 1) {
+            stubLocation[namespaceChunk] = function() {
+              console.log(fullName + '(' +
+                Array.prototype.slice.call(arguments).map(function(arg) {
+                  return JSON.stringify(arg);
+                }).join(', ') + ')'
+              );
+            }
+          } else if (!stubLocation[namespaceChunk]) {
+            stubLocation[namespaceChunk] = {};
+          }
+          stubLocation = stubLocation[namespaceChunk];
+        });
+      });
+    };
+    appboyBridge = {};
+    brazeBridge = {};
+    [
+      ['closeMessage'],
+      ['logClick'],
+      ['logCustomEvent'],
+      ['logPurchase'],
+      ['requestImmediateDataFlush'],
+      ['requestPushPermission'],
+      ['display', 'showFeed'],
+      ['web', 'registerAppboyPushMessages'],
+      ['web', 'trackLocation']
+    ].forEach(function(namespacedMethod) {
+      stubMethod(appboyBridge, 'appboyBridge', namespacedMethod);
+      stubMethod(brazeBridge, 'brazeBridge', namespacedMethod);
+    });
+    var stubUser = {};
+    appboyBridge.getUser = function() {return stubUser};
+    brazeBridge.getUser = function() {return stubUser};
+    [
+      ['setFirstName'],
+      ['setLastName'],
+      ['setEmail'],
+      ['setGender'],
+      ['setDateOfBirth'],
+      ['setCountry'],
+      ['setHomeCity'],
+      ['setEmailNotificationSubscriptionType'],
+      ['setPushNotificationSubscriptionType'],
+      ['setPhoneNumber'],
+      ['addToCustomAttributeArray'],
+      ['removeFromCustomAttributeArray'],
+      ['incrementCustomUserAttribute'],
+      ['setCustomUserAttribute'],
+      ['setLanguage'],
+      ['setCustomLocationAttribute']
+    ].forEach(function(namespacedUserMethod) {
+      stubMethod(stubUser, 'appboyBridge.getUser()', namespacedUserMethod);
+      stubMethod(stubUser, 'brazeBridge.getUser()', namespacedUserMethod);
+    });
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        window.dispatchEvent(new CustomEvent("ab.BridgeReady"));
+      });
+    });
+  </script>
 </head>
 <body>
 <div id="i72r1o"></div><div></div><div class="bz-background"><div class="bz-modal" role="dialog" aria-modal="true" aria-label="Modal Message"><div class="close-button-container bz-cell" id="io6d"><div class="bz-cell close-button-container-child"></div><div class="bz-cell close-button-container-child"></div><button type="button" class="bz-close-btn close-button-container-child" aria-label="Close Message" id="ilwd"><svg><svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
