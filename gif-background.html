@@ -1,0 +1,129 @@
+<html lang="en"><head><script type="text/javascript">
+  var stubPreloadStateForMethod = function(rootObject, rootObjectName, namespacedMethod) {
+    var stubLocation = rootObject;
+    namespacedMethod.forEach(function(namespaceChunk, i) {
+      if (i == namespacedMethod.length - 1) {
+        stubLocation[namespaceChunk] = function() {
+          throw new Error(
+            `${rootObjectName} is not yet defined. Please wait for the "ab.BridgeReady" event using window.addEventListener in order to use ${rootObjectName} directly upon showing the message.`
+          );
+        }
+      } else if (!stubLocation[namespaceChunk]) {
+        stubLocation[namespaceChunk] = {};
+      }
+      stubLocation = stubLocation[namespaceChunk];
+    });
+  };
+
+  var stubMethod = function(rootObject, rootObjectName, namespacedMethod) {
+    // When messages first load in the SDKs, the bridge is not yet defined, and the user must listen for the
+    // ab.BridgeReady event if attempting to use the bridge directly upon message load. This simulates that situation
+    // with improved guidance.
+    stubPreloadStateForMethod(rootObject, rootObjectName, namespacedMethod);
+
+    // Then next event loop define the "real" stub method as a passthrough to console.log
+    setTimeout(function() {
+      var fullName = rootObjectName;
+      var stubLocation = rootObject;
+      namespacedMethod.forEach(function(namespaceChunk, i) {
+        fullName += '.' + namespaceChunk;
+        if (i == namespacedMethod.length - 1) {
+          stubLocation[namespaceChunk] = function() {
+            console.log(fullName + '(' +
+              Array.prototype.slice.call(arguments).map(function(arg) {
+                return JSON.stringify(arg);
+              }).join(', ') + ')'
+            );
+          }
+        } else if (!stubLocation[namespaceChunk]) {
+          stubLocation[namespaceChunk] = {};
+        }
+        stubLocation = stubLocation[namespaceChunk];
+      });
+    });
+  };
+  appboyBridge = {};
+  brazeBridge = {};
+  [
+    ['closeMessage'],
+    ['logClick'],
+    ['logCustomEvent'],
+    ['logPurchase'],
+    ['requestImmediateDataFlush'],
+    ['requestPushPermission'],
+    ['display', 'showFeed'],
+    ['web', 'registerAppboyPushMessages'],
+    ['web', 'trackLocation']
+  ].forEach(function(namespacedMethod) {
+    stubMethod(appboyBridge, 'appboyBridge', namespacedMethod);
+    stubMethod(brazeBridge, 'brazeBridge', namespacedMethod);
+  });
+  var stubUser = {};
+  appboyBridge.getUser = function() {return stubUser};
+  brazeBridge.getUser = function() {return stubUser};
+  [
+    ['setFirstName'],
+    ['setLastName'],
+    ['setEmail'],
+    ['setGender'],
+    ['setDateOfBirth'],
+    ['setCountry'],
+    ['setHomeCity'],
+    ['setEmailNotificationSubscriptionType'],
+    ['setPushNotificationSubscriptionType'],
+    ['setPhoneNumber'],
+    ['addToCustomAttributeArray'],
+    ['removeFromCustomAttributeArray'],
+    ['incrementCustomUserAttribute'],
+    ['setCustomUserAttribute'],
+    ['setLanguage'],
+    ['setCustomLocationAttribute']
+  ].forEach(function(namespacedUserMethod) {
+    stubMethod(stubUser, 'appboyBridge.getUser()', namespacedUserMethod);
+    stubMethod(stubUser, 'brazeBridge.getUser()', namespacedUserMethod);
+  });
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      window.dispatchEvent(new CustomEvent("ab.BridgeReady"));
+    });
+  });
+</script>
+
+
+
+  <title>Modal Message</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+      * { box-sizing: border-box; } body {margin: 0;}.bz-close-btn{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;background-color:inherit;border:none;width:15px;min-width:15px;min-height:15px;height:15px;cursor:pointer;display:block;font-size:15px;line-height:0;padding:15px;text-align:center;fill:#c4c4c4;}body:not(.gjs-dashed) .bz-close-btn:active{background-color:transparent;}body:not(.gjs-dashed) .bz-close-btn:focus{background-color:transparent;}body:not(.gjs-dashed) .bz-close-btn:hover{background-color:transparent;}body:not(.gjs-dashed) .bz-close-btn:hover svg{fill-opacity:0.8;}.bz-close-btn svg{width:100%;height:100%;-webkit-transition:0.2s ease;-o-transition:0.2s ease;-moz-transition:0.2s ease;transition:0.2s ease;}.bz-img{max-width:100%;display:inline-block;}.bz-text{width:100%;padding:16px;text-align:center;font-family:inherit;}.bz-btn{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;cursor:pointer;display:inline-block;font-size:14px;font-weight:700;height:44px;min-height:44px;line-height:44px;letter-spacing:normal;max-width:100%;width:100%;padding:0 12px;position:relative;font-family:inherit;border:1px solid #1B78CF;background-color:#1B78CF;color:white;-webkit-transition:0.2s ease;-o-transition:0.2s ease;-moz-transition:0.2s ease;transition:0.2s ease;overflow:hidden;-o-text-overflow:ellipsis;text-overflow:ellipsis;word-wrap:normal;white-space:nowrap;text-align:center;}body:not(.gjs-dashed) .bz-btn:after{content:'';position:absolute;width:100%;height:100%;top:0;left:0;opacity:0;-webkit-transition:0.2s ease;-o-transition:0.2s ease;-moz-transition:0.2s ease;transition:0.2s ease;}body:not(.gjs-dashed) .bz-btn:hover{opacity:0.8;}body:not(.gjs-dashed) .bz-btn:active:after{background-color:rgba(0, 0, 0, 0.08);opacity:1;}body:not(.gjs-dashed) .bz-btn:focus:after{background-color:rgba(0, 0, 0, 0.15);opacity:1;}.bz-btn a{color:inherit;text-decoration:inherit;}.bz-cell{display: -webkit-box;display: -webkit-flex;display: -moz-box;display: flex;width:100%;}.bz-sctn{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;overflow-y:auto;width:100%;padding:0 25px;display:block;position:relative;text-align:center;}.bz-sctn::-webkit-scrollbar{-webkit-appearance:none;width:14px;}.bz-sctn::-webkit-scrollbar-thumb{-webkit-appearance:none;border:4px solid rgba(0, 0, 0, 0);background-clip:padding-box;-webkit-border-radius:7px;border-radius:7px;background-color:rgba(0, 0, 0, 0.2);}.bz-sctn::-webkit-scrollbar-button{width:0;height:0;display:none;}.bz-sctn::-webkit-scrollbar-corner{background-color:transparent;}.bz-modal{background-color:white;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;-webkit-box-shadow:0 0 4px rgba(0, 0, 0, 0.3);-moz-box-shadow:0 0 4px rgba(0, 0, 0, 0.3);box-shadow:0 0 4px rgba(0, 0, 0, 0.3);-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;display: -webkit-box;display: -webkit-flex;display: -moz-box;display: flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-moz-box-orient:vertical;-moz-box-direction:normal;flex-direction:column;min-height:100px;overflow:auto;position:relative;width:450px;max-width:450px;max-height:720px;}.bz-background{-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;align-items:center;background-color:rgba(51, 51, 51, 0.75);display: -webkit-box;display: -webkit-flex;display: -moz-box;display: flex;height:100%;-webkit-box-pack:center;-webkit-justify-content:center;-moz-box-pack:center;justify-content:center;left:0;position:fixed;top:0;width:100%;}#is0h{padding-top:45px;background-color:rgba(51,51,51,0);background-image:url('https://cdn-staging.braze.com/appboy/communication/assets/image_assets/images/5f18ae13a76e0f366408d261/original.gif?1595452947');background-repeat:repeat;background-position:left top;background-attachment:scroll;background-size:auto;}#iw08{position:absolute;top:0;right:0;border:0 solid #f2f2f2;fill:#5362f7;}#ims4{font-weight:700;font-size:20px;line-height:1.3em;color:rgb(37, 37, 37);text-align:left;}#idwh{text-align:left;}#iyrzf{background-color:white;color:black;border:1px solid #000000;padding:0 12px 0 12px;margin:0 75px 0 75px;}#iqsjx{background-color:white;color:black;border:1px solid #000000;margin:0 75px 0 75px;}body{font-family:'sailec.otf:617706bb1517b50067af37cf', 'San Francisco', 'Roboto', Helvetica, Arial, sans-serif;}.bz-spacer{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;background-color:inherit;min-width:20px;min-height:20px;border:none;display:block;padding:0;}#im8gc{width:auto;height:20px;}@font-face{font-family:'sailec.otf:617706bb1517b50067af37cf';src:url('https://cdn-staging.braze.com/appboy/communication/assets/font_assets/files/617706bb1517b50067af37cf/original.otf?1635190459');}@media (max-height: 750px){.bz-modal{max-height:calc(100% - 30px);}}@media (max-width: 600px){.bz-modal{max-width:calc(100% - 30px);}}
+  </style>
+</head>
+<body>
+<div id="itv0t"></div><div class="bz-background" id="ig8d"><div class="bz-modal" role="dialog" aria-modal="true" aria-label="Modal Message"><div class="bz-sctn" id="is0h"><button type="button" class="bz-close-btn" aria-label="Close Message" id="iw08"><svg><svg viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15 1.5L13.5 0l-6 6-6-6L0 1.5l6 6-6 6L1.5 15l6-6 6 6 1.5-1.5-6-6 6-6z"></path>
+</svg></svg></button><img alt="Modal Image" src="https://cdn-staging.braze.com/appboy/communication/assets/image_assets/images/62d836b529e4ee0071949c48/original.png?1658336949" id="irt1" class="bz-img"><div class="bz-text" id="ims4">There is no better time than the present, {{${first_name} | default: 'friend}}!</div><div class="bz-text" id="idwh">Sign up for a week of unlimited classes during our summer session.</div><div class="bz-cell"><div class="bz-cell" id="i0dr8"><button type="button" class="bz-btn" id="iqsjx">Book Now&nbsp;</button></div></div><div class="bz-cell"><div class="bz-cell"><button type="button" class="bz-btn" id="iyrzf">Remind Me Later</button></div></div><div class="bz-spacer" id="im8gc"></div></div></div></div><script>var items = document.querySelectorAll('#itv0t');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    window.htmlEventTraitHandler={addEventListenerByEventTrait:function(e,t){switch(t.trigger.type){case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_CLICK:case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOUT:case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOVER:case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSE_FOCUS:e.addEventListener(t.trigger.type,(function(){window.htmlEventTraitHandler.buildHtmlEventListenerCallback(t)()}))}},addEventListenerByEventTraits:function(e,t){if(e&&t&&0!=t.length)return t.map((function(t){return window.htmlEventTraitHandler.addEventListenerByEventTrait(e,t)}))},brazeEventTypes:{CLOSE_MESSAGE:"CLOSE_MESSAGE",LOG_CLICK:"LOG_CLICK",LOG_CUSTOM_EVENT:"LOG_CUSTOM_EVENT",SET_COUNTRY:"SET_COUNTRY",SET_FIRST_NAME:"SET_FIRST_NAME",SHOW_FEED:"SHOW_FEED",REDIRECT:"REDIRECT"},buildHtmlEventListenerCallback:function(e){return function(){var t=!0;e.expression&&(t=window.htmlEventTraitHandler.expressionHelper.evalExpression(e.expression)),t&&window.htmlEventTraitHandler.brazeEventHelper.evalBrazeEventCallbacks(e.brazeEvents)}},expressionTypes:{LITERAL_VALUE:"LITERAL_VALUE",LIQUID_INPUT:"LIQUID_INPUT",FETCH_HTML_VALUE:"FETCH_HTML_VALUE",AND:"AND",BLANK:"BLANK",IS_NUMERIC:"IS_NUMERIC",NOT:"NOT",RANGE:"RANGE",TRUTHY:"TRUTHY"},triggerTypes:{HTML_EVENT_CLICK:"click",HTML_EVENT_MOUSEOVER:"mouseover",HTML_EVENT_MOUSEOUT:"mouseout",HTML_EVENT_MOUSE_FOCUS:"focus"},brazeEventHelper:{evalBrazeEventCallbacks:function(e){window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventsCallbacks(e).forEach((function(e){e()}))},buildBrazeEventsCallbacks:function(e){return e.map((function(e){return window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventCallBack(e)}))},buildBrazeEventCallBack:function(e){switch(e.eventType){case window.htmlEventTraitHandler.brazeEventTypes.SET_FIRST_NAME:return window.htmlEventTraitHandler.brazeEventHelper.buildSetFirstNameCallback(e);case window.htmlEventTraitHandler.brazeEventTypes.CLOSE_MESSAGE:return window.htmlEventTraitHandler.brazeEventHelper.buildCloseMessageCallback();case window.htmlEventTraitHandler.brazeEventTypes.LOG_CUSTOM_EVENT:return window.htmlEventTraitHandler.brazeEventHelper.buildLogCustomEventCallback(e);case window.htmlEventTraitHandler.brazeEventTypes.REDIRECT:return window.htmlEventTraitHandler.brazeEventHelper.buildRedirectCallback(e);case window.htmlEventTraitHandler.brazeEventTypes.LOG_CLICK:return window.htmlEventTraitHandler.brazeEventHelper.buildLogClickCallback(e);case window.htmlEventTraitHandler.brazeEventTypes.SET_COUNTRY:case window.htmlEventTraitHandler.brazeEventTypes.SHOW_FEED:default:return function(){return null}}},buildCloseMessageCallback:function(){return function(){window.appboyBridge.closeMessage()}},buildLogCustomEventCallback:function(e){return function(){var t=window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value);window.appboyBridge.logCustomEvent(t)}},buildSetFirstNameCallback:function(e){return function(){var t=window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value);window.appboyBridge.getUser().setFirstName(t)}},buildRedirectCallback:function(e){return function(){window.top.location.href=window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value)}},buildLogClickCallback:function(e){return function(){var t=window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value);window.appboyBridge.logClick(t)}}},expressionHelper:{evalExpression:function(e){return window.htmlEventTraitHandler.expressionHelper.buildExpressionCallback(e)()},buildExpressionCallback:function(e){switch(e.operator){case window.htmlEventTraitHandler.expressionTypes.FETCH_HTML_VALUE:return window.htmlEventTraitHandler.expressionHelper.buildFetchHTMLValueExpressionCallback(e);case window.htmlEventTraitHandler.expressionTypes.AND:return window.htmlEventTraitHandler.expressionHelper.buildAndExpressionCallback(e);case window.htmlEventTraitHandler.expressionTypes.BLANK:return window.htmlEventTraitHandler.expressionHelper.buildBlankExpressionCallback(e);case window.htmlEventTraitHandler.expressionTypes.LITERAL_VALUE:case window.htmlEventTraitHandler.expressionTypes.LIQUID_INPUT:return window.htmlEventTraitHandler.expressionHelper.buildLiteralValueExpressionCallback(e);case window.htmlEventTraitHandler.expressionTypes.TRUTHY:return window.htmlEventTraitHandler.expressionHelper.buildTruthyValueExpressionCallback(e);case window.htmlEventTraitHandler.expressionTypes.IS_NUMERIC:case window.htmlEventTraitHandler.expressionTypes.NOT:case window.htmlEventTraitHandler.expressionTypes.RANGE:return function(){return null}}},buildFetchHTMLValueExpressionCallback:function(e){return function(){var t=document.getElementsByClassName(e.value);return t.length>0?t[0].innerHTML:null}},buildAndExpressionCallback:function(e){return function(){return e.args.every((function(e){return window.htmlEventTraitHandler.expressionHelper.evalExpression(e)}))}},buildBlankExpressionCallback:function(e){return function(){return!window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value)}},buildLiteralValueExpressionCallback:function(e){return function(){return e.value}},buildTruthyValueExpressionCallback:function(e){return function(){return!!window.htmlEventTraitHandler.expressionHelper.evalExpression(e.value)}}}}
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#iw08');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    this.onclick=function(){window.appboyBridge.requestImmediateDataFlush(),window.appboyBridge.closeMessage(),window.appboyBridge.logClick("Close Message")}
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#irt1');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    var e=this;this.onerror=function(){e.style.display="none"}
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#iqsjx, #iyrzf');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function(){
+    var e=[],t=this.getAttribute("bz-onclick"),n=JSON.parse(t),r=this.getAttribute("bz-logclick");if(e=n||[{trigger:{type:"click"},expression:null,brazeEvents:[{eventType:"CLOSE_MESSAGE"}]}],!r){var a=new RegExp(/[^\w\d -]/g),o=this.textContent.replace(a,"");o.length>250&&(o=o.substr(0,250)),r=o}e[0].brazeEvents.unshift({eventType:"LOG_CLICK",value:{operator:"LITERAL_VALUE",value:r}});window.htmlEventTraitHandler.addEventListenerByEventTraits(this,e)
+  }.bind(items[i]))();
+}</script>
+
+</body></html>
