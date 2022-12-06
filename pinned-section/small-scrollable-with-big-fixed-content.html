@@ -1,0 +1,882 @@
+<html lang="en">
+<head>
+  <title>Modal Message</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+
+      * {
+          box-sizing: border-box;
+      }
+
+      html, body {
+          min-height: 100%;
+      }
+
+      body {
+          margin: 0;
+          height: 100%;
+          font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      }
+
+      * {
+          box-sizing: border-box;
+      }
+
+      body {
+          margin: 0;
+      }
+
+      .bz-spacer {
+          -webkit-box-sizing: content-box;
+          -moz-box-sizing: content-box;
+          box-sizing: content-box;
+          background-color: inherit;
+          width: 100%;
+          min-height: 20px;
+          border: none;
+          display: block;
+          padding: 0;
+      }
+
+      .bz-img {
+          max-width: 100%;
+          background-color: unset;
+          display: inline-block;
+          width: 100%;
+          outline: none;
+      }
+
+      .bz-column {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: flex;
+          height: auto;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          -moz-box-orient: vertical;
+          -moz-box-direction: normal;
+          flex-direction: column;
+          overflow-x: hidden;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -moz-box-align: center;
+          align-items: center;
+      }
+
+      .bz-row {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: flex;
+          width: 100%;
+          -webkit-box-orient: horizontal;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: row;
+          -moz-box-orient: horizontal;
+          -moz-box-direction: normal;
+          flex-direction: row;
+          overflow-x: hidden;
+          padding: 5px 30px;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -moz-box-align: center;
+          align-items: center;
+      }
+
+      #iunj {
+          width: 100.00%;
+      }
+
+      #ig413 {
+          width: 100.00%;
+      }
+
+      #inno3 {
+          width: 100.00%;
+      }
+
+      #iorc2 {
+          width: 100.00%;
+      }
+
+      #iv9dp {
+          width: 100.00%;
+      }
+
+      .bz-sctn {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          width: 100%;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          -moz-box-orient: vertical;
+          -moz-box-direction: normal;
+          flex-direction: column;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -moz-box-align: center;
+          align-items: center;
+          position: relative;
+          text-align: center;
+      }
+
+      .bz-sctn::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 14px;
+      }
+
+      .bz-sctn::-webkit-scrollbar-thumb {
+          -webkit-appearance: none;
+          border: 4px solid rgba(0, 0, 0, 0);
+          background-clip: padding-box;
+          -webkit-border-radius: 7px;
+          border-radius: 7px;
+          background-color: rgba(0, 0, 0, 0.2);
+      }
+
+      .bz-sctn::-webkit-scrollbar-button {
+          width: 0;
+          height: 0;
+          display: none;
+      }
+
+      .bz-sctn::-webkit-scrollbar-corner {
+          background-color: transparent;
+      }
+
+      .bz-background {
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -moz-box-align: center;
+          align-items: center;
+          background-color: #333333BF;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: flex;
+          height: 100%;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -moz-box-pack: center;
+          justify-content: center;
+          left: 0;
+          position: fixed;
+          top: 0;
+          width: 100%;
+      }
+
+      .bz-modal {
+          height: 100%;
+          background-color: #FFFFFF;
+          -webkit-border-radius: 8px;
+          -moz-border-radius: 8px;
+          border-radius: 8px;
+          -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+          -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          -moz-box-orient: vertical;
+          -moz-box-direction: normal;
+          flex-direction: column;
+          min-height: 100px;
+          overflow: auto;
+          position: relative;
+          max-width: 96%;
+          width: 450px;
+          max-height: 720px;
+          background-image: url(https://s3.amazonaws.com/appboy-development-bucket/appboy/communication/assets/image_assets/images/6374228a1c19e542fecd9595/original.png?1668555402);
+          background-size: cover;
+          background-position: center;
+      }
+
+      .bz-close-btn {
+          fill: #c4c4c4;
+          -webkit-box-sizing: content-box;
+          -moz-box-sizing: content-box;
+          box-sizing: content-box;
+          background-color: #FFFFFF00;
+          border: none;
+          width: 15px;
+          min-width: 15px;
+          min-height: 15px;
+          height: 15px;
+          cursor: pointer;
+          display: block;
+          font-size: 15px;
+          line-height: 0;
+          padding: 15px;
+          text-align: center;
+      }
+
+      .bz-close-btn:hover svg {
+          fill-opacity: 0.8;
+      }
+
+      .bz-close-btn svg {
+          width: 100%;
+          height: 100%;
+          -webkit-transition: 0.2s ease;
+          -o-transition: 0.2s ease;
+          -moz-transition: 0.2s ease;
+          transition: 0.2s ease;
+      }
+
+      .bz-btn {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          -webkit-border-radius: 8px;
+          -moz-border-radius: 8px;
+          border-radius: 8px;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+          cursor: pointer;
+          display: inline-block;
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 20px;
+          letter-spacing: normal;
+          max-width: 100%;
+          width: auto;
+          padding: 15px 25px;
+          position: relative;
+          font-family: inherit;
+          border: 0;
+          background-color: #008294;
+          color: #FFFFFF;
+          -webkit-transition: 0.2s ease;
+          -o-transition: 0.2s ease;
+          -moz-transition: 0.2s ease;
+          transition: 0.2s ease;
+          word-wrap: normal;
+          white-space: normal;
+          text-align: center;
+      }
+
+      .bz-btn:after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          opacity: 0;
+          -webkit-transition: 0.2s ease;
+          -o-transition: 0.2s ease;
+          -moz-transition: 0.2s ease;
+          transition: 0.2s ease;
+      }
+
+      .bz-btn:hover {
+          opacity: 0.8;
+      }
+
+      .bz-btn:active:after {
+          background-color: rgba(0, 0, 0, 0.08);
+          opacity: 1;
+      }
+
+      .bz-btn:focus:after {
+          background-color: rgba(0, 0, 0, 0.15);
+          opacity: 1;
+      }
+
+      .bz-text {
+          width: 100%;
+          text-align: center;
+          font-family: inherit;
+          font-size: 14px;
+          font-weight: normal;
+      }
+
+      .header-text {
+          font-weight: 700;
+          font-size: 17px;
+          line-height: 1.5em;
+      }
+
+      .body-text {
+          font-size: 14px;
+      }
+
+      .mid-spacer {
+          height: 20px;
+          width: 100%;
+      }
+
+      .modal-btn {
+          font-weight: 700;
+      }
+
+      .bottom-spacer {
+          height: 10px;
+          width: 100%;
+      }
+
+      #i0lm {
+          position: absolute;
+          top: 0;
+          right: 0;
+      }
+
+      #iwi6 {
+          height: 45px;
+          width: 100%;
+      }
+
+      #iqd1 {
+          width: 100%;
+          height: auto;
+          align-self: center;
+      }
+
+      @media (max-height: 750px) {
+          .bz-modal {
+              max-height: calc(100% - 30px);
+          }
+      }
+
+      @media (max-width: 600px) {
+          .bz-modal {
+              max-width: calc(100% - 30px);
+          }
+      }
+
+
+      .ping-section-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+      }
+  </style>
+</head>
+<body>
+<div id="iy1kp"></div>
+<div class="bz-background">
+  <div role="dialog" aria-modal="true" aria-label="Modal Message" data-brz-background-image-filename="1.png"
+       data-brz-background-image-url="https://s3.amazonaws.com/appboy-development-bucket/appboy/communication/assets/image_assets/images/6374228a1c19e542fecd9595/original.png?1668555402"
+       class="bz-modal">
+    <div class="ping-section-container">
+      <div style="background-color: lightblue; height: 100%; overflow-y: auto">
+        <div class="bz-sctn">
+          <div class="bz-row">
+            <div class="bz-column" id="inno3">
+              <div class="bz-text body-text">The top section is scrollable and the middle and bottom sections are not.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="inno3">
+            <div class="bz-text body-text">Big fix content with small scrollable
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="background-color: lime">
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">There is a scrollable content at the top, but the fixed content is taller than the device height, the scrollable section has 0px.</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">We can programmatically make the everything a single scrollable section with js.</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+        <div class="bz-row">
+          <div class="bz-column" id="iv9dp">
+            <button type="button" class="bz-btn modal-btn" id="igzsf">Secondary Action</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>var items = document.querySelectorAll('#iy1kp');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function () {
+    var triggerTypes = {
+      HTML_EVENT_CLICK: "click",
+      HTML_EVENT_MOUSEOVER: "mouseover",
+      HTML_EVENT_MOUSEOUT: "mouseout",
+      HTML_EVENT_MOUSE_FOCUS: "focus"
+    };
+    var expressionTypes = {
+      LITERAL_VALUE: "LITERAL_VALUE",
+      LIQUID_INPUT: "LIQUID_INPUT",
+      FETCH_HTML_VALUE: "FETCH_HTML_VALUE",
+      AND: "AND",
+      BLANK: "BLANK",
+      IS_NUMERIC: "IS_NUMERIC",
+      NOT: "NOT",
+      RANGE: "RANGE",
+      TRUTHY: "TRUTHY"
+    };
+    var brazeEventTypes = {
+      CLOSE_MESSAGE: "CLOSE_MESSAGE",
+      LOG_CLICK: "LOG_CLICK",
+      LOG_CUSTOM_EVENT: "LOG_CUSTOM_EVENT",
+      SET_COUNTRY: "SET_COUNTRY",
+      SET_FIRST_NAME: "SET_FIRST_NAME",
+      SHOW_FEED: "SHOW_FEED",
+      REDIRECT: "REDIRECT",
+      REQUEST_IMMEDIATE_DATA_FLUSH: "REQUEST_IMMEDIATE_DATA_FLUSH"
+    };
+
+    var addEventListenerByEventTraits = function addEventListenerByEventTraits(element, eventTraits) {
+      // Ensure that we never throw an exception, even if traits are not initialized for a component
+      if (!element || !eventTraits || eventTraits.length == 0) {
+        return;
+      }
+
+      return eventTraits.map(function (eventTrait) {
+        return window.htmlEventTraitHandler.addEventListenerByEventTrait(element, eventTrait);
+      });
+    };
+
+    var addEventListenerByEventTrait = function addEventListenerByEventTrait(element, eventTrait) {
+      switch (eventTrait.trigger.type) {
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_CLICK:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOUT:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSEOVER:
+        case window.htmlEventTraitHandler.triggerTypes.HTML_EVENT_MOUSE_FOCUS:
+          element.addEventListener(eventTrait.trigger.type, function () {
+            window.htmlEventTraitHandler.buildHtmlEventListenerCallback(eventTrait)();
+          });
+      }
+    };
+
+    var buildHtmlEventListenerCallback = function buildHtmlEventListenerCallback(eventTrait) {
+      return function () {
+        var expression = true;
+
+        if (eventTrait.expression) {
+          expression = window.htmlEventTraitHandler.expressionHelper.evalExpression(eventTrait.expression);
+        }
+
+        if (expression) {
+          window.htmlEventTraitHandler.brazeEventHelper.evalBrazeEventCallbacks(eventTrait.brazeEvents);
+        }
+      };
+    };
+
+    var evalExpression = function evalExpression(expression) {
+      return window.htmlEventTraitHandler.expressionHelper.buildExpressionCallback(expression)();
+    };
+
+    var buildExpressionCallback = function buildExpressionCallback(expression) {
+      switch (expression.operator) {
+        case window.htmlEventTraitHandler.expressionTypes.FETCH_HTML_VALUE:
+          return window.htmlEventTraitHandler.expressionHelper.buildFetchHTMLValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.AND:
+          return window.htmlEventTraitHandler.expressionHelper.buildAndExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.BLANK:
+          return window.htmlEventTraitHandler.expressionHelper.buildBlankExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.LITERAL_VALUE:
+        case window.htmlEventTraitHandler.expressionTypes.LIQUID_INPUT:
+          return window.htmlEventTraitHandler.expressionHelper.buildLiteralValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.TRUTHY:
+          return window.htmlEventTraitHandler.expressionHelper.buildTruthyValueExpressionCallback(expression);
+
+        case window.htmlEventTraitHandler.expressionTypes.IS_NUMERIC:
+        case window.htmlEventTraitHandler.expressionTypes.NOT:
+        case window.htmlEventTraitHandler.expressionTypes.RANGE:
+          return function () {
+            return null;
+          };
+      }
+    };
+
+    var buildLiteralValueExpressionCallback = function buildLiteralValueExpressionCallback(expression) {
+      return function () {
+        return expression.value;
+      };
+    };
+
+    var buildFetchHTMLValueExpressionCallback = function buildFetchHTMLValueExpressionCallback(expression) {
+      return function () {
+        var collection = document.getElementsByClassName(expression.value);
+
+        if (collection.length > 0) {
+          return collection[0].innerHTML;
+        } else {
+          return null;
+        }
+      };
+    };
+
+    var buildAndExpressionCallback = function buildAndExpressionCallback(expression) {
+      return function () {
+        return expression.args.every(function (expression) {
+          return window.htmlEventTraitHandler.expressionHelper.evalExpression(expression);
+        });
+      };
+    };
+
+    var buildBlankExpressionCallback = function buildBlankExpressionCallback(expression) {
+      return function () {
+        var value = window.htmlEventTraitHandler.expressionHelper.evalExpression(expression.value);
+        return !value;
+      };
+    };
+
+    var buildTruthyValueExpressionCallback = function buildTruthyValueExpressionCallback(expression) {
+      return function () {
+        var value = window.htmlEventTraitHandler.expressionHelper.evalExpression(expression.value);
+        return !!value;
+      };
+    };
+
+    var evalBrazeEventCallbacks = function evalBrazeEventCallbacks(brazeEvents) {
+      window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventsCallbacks(brazeEvents).forEach(function (callback) {
+        callback();
+      });
+    };
+
+    var buildBrazeEventsCallbacks = function buildBrazeEventsCallbacks(brazeEvents) {
+      return brazeEvents.map(function (brazeEvent) {
+        return window.htmlEventTraitHandler.brazeEventHelper.buildBrazeEventCallBack(brazeEvent);
+      });
+    };
+
+    var buildBrazeEventCallBack = function buildBrazeEventCallBack(brazeEvent) {
+      switch (brazeEvent.eventType) {
+        case window.htmlEventTraitHandler.brazeEventTypes.SET_FIRST_NAME:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildSetFirstNameCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.CLOSE_MESSAGE:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildCloseMessageCallback();
+
+        case window.htmlEventTraitHandler.brazeEventTypes.LOG_CUSTOM_EVENT:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildLogCustomEventCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.REDIRECT:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildRedirectCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.LOG_CLICK:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildLogClickCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.REQUEST_IMMEDIATE_DATA_FLUSH:
+          return window.htmlEventTraitHandler.brazeEventHelper.buildImmediateDataFlushCallback(brazeEvent);
+
+        case window.htmlEventTraitHandler.brazeEventTypes.SET_COUNTRY:
+        case window.htmlEventTraitHandler.brazeEventTypes.SHOW_FEED:
+        default:
+          return function () {
+            return null;
+          };
+      }
+    };
+
+    var buildSetFirstNameCallback = function buildSetFirstNameCallback(brazeEvent) {
+      return function () {
+        var firstName = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.getUser().setFirstName(firstName);
+      };
+    };
+
+    var buildImmediateDataFlushCallback = function buildImmediateDataFlushCallback() {
+      return function () {
+        window.appboyBridge.requestImmediateDataFlush();
+      };
+    };
+
+    var buildCloseMessageCallback = function buildCloseMessageCallback() {
+      return function () {
+        window.appboyBridge.closeMessage();
+      };
+    };
+
+    var buildLogCustomEventCallback = function buildLogCustomEventCallback(brazeEvent) {
+      return function () {
+        var customEventName = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.logCustomEvent(customEventName);
+      };
+    };
+
+    var buildRedirectCallback = function buildRedirectCallback(brazeEvent) {
+      return function () {
+        window.top.location.href = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+      };
+    };
+
+    var buildLogClickCallback = function buildLogClickCallback(brazeEvent) {
+      return function () {
+        var clickIdentifier = window.htmlEventTraitHandler.expressionHelper.evalExpression(brazeEvent.value);
+        window.appboyBridge.logClick(clickIdentifier);
+      };
+    };
+
+    window.htmlEventTraitHandler = {
+      addEventListenerByEventTrait: addEventListenerByEventTrait,
+      addEventListenerByEventTraits: addEventListenerByEventTraits,
+      brazeEventTypes: brazeEventTypes,
+      buildHtmlEventListenerCallback: buildHtmlEventListenerCallback,
+      expressionTypes: expressionTypes,
+      triggerTypes: triggerTypes,
+      brazeEventHelper: {
+        evalBrazeEventCallbacks: evalBrazeEventCallbacks,
+        buildBrazeEventsCallbacks: buildBrazeEventsCallbacks,
+        buildBrazeEventCallBack: buildBrazeEventCallBack,
+        buildCloseMessageCallback: buildCloseMessageCallback,
+        buildLogCustomEventCallback: buildLogCustomEventCallback,
+        buildSetFirstNameCallback: buildSetFirstNameCallback,
+        buildRedirectCallback: buildRedirectCallback,
+        buildLogClickCallback: buildLogClickCallback,
+        buildImmediateDataFlushCallback: buildImmediateDataFlushCallback
+      },
+      expressionHelper: {
+        evalExpression: evalExpression,
+        buildExpressionCallback: buildExpressionCallback,
+        buildFetchHTMLValueExpressionCallback: buildFetchHTMLValueExpressionCallback,
+        buildAndExpressionCallback: buildAndExpressionCallback,
+        buildBlankExpressionCallback: buildBlankExpressionCallback,
+        buildLiteralValueExpressionCallback: buildLiteralValueExpressionCallback,
+        buildTruthyValueExpressionCallback: buildTruthyValueExpressionCallback
+      }
+    };
+  }.bind(items[i]))();
+}
+var items = document.querySelectorAll('#i0lm');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function () {
+    this.onclick = function () {
+      window.appboyBridge.requestImmediateDataFlush();
+      window.appboyBridge.closeMessage();
+      window.appboyBridge.logClick("Close Message");
+    };
+  }.bind(items[i]))();
+}
+var props = {"iqd1": {"defaultSvg": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3QgeD0iMTUiIHk9IjE1IiB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHN0cm9rZT0iI0E4QjNCOCIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0yNC41IDMxLjVMMTUgMzkuNVY0NUg0NS41VjI0TDMxLjUgMzVMMjQuNSAzMS41WiIgZmlsbD0iI0E4QjNCOCIvPgo8Y2lyY2xlIGN4PSIyMyIgY3k9IjIzIiByPSI0IiBmaWxsPSIjQThCM0I4Ii8+Cjwvc3ZnPgo="}};
+var ids = Object.keys(props).map(function (id) {
+  return '#' + id
+}).join(',');
+var els = document.querySelectorAll(ids);
+for (var i = 0, len = els.length; i < len; i++) {
+  var el = els[i];
+  (function script(props) {
+    var _this = this;
+
+    var finalContract = [];
+    var onClickContract = this.getAttribute("bz-onclick");
+    var parsedOnClickContract = JSON.parse(onClickContract);
+    var logClickIdentifierValue = this.getAttribute("bz-logclick"); //====== Image only region
+
+    this.onerror = function () {
+      _this.style.display = "none";
+      _this.alt = "";
+    };
+
+    if (this.src == props.defaultSvg) {
+      this.onerror("no-img-selected");
+      return;
+    }
+
+    if (!parsedOnClickContract) {
+      // The 'bz-onclick' attribute is only added if the trait section is opened (ie, the component is selected).
+      // The default behavior for an Image is "None" so that's what we use if they never opened the trait
+      finalContract = [{
+        trigger: {
+          type: "click"
+        },
+        expression: null,
+        brazeEvents: []
+      }];
+    } else {
+      finalContract = parsedOnClickContract;
+    }
+
+    if (logClickIdentifierValue) {
+      // For images, log a click only if there is a value to log
+      finalContract[0].brazeEvents.unshift({
+        eventType: "LOG_CLICK",
+        value: {
+          operator: "LITERAL_VALUE",
+          value: logClickIdentifierValue
+        }
+      });
+    } //====== End image only region
+
+
+    var element = this;
+    window.htmlEventTraitHandler.addEventListenerByEventTraits(element, finalContract);
+  }.bind(el))(props[el.id]);
+}
+var items = document.querySelectorAll('#ic99k, #igzsf');
+for (var i = 0, len = items.length; i < len; i++) {
+  (function () {
+    var finalContract = [];
+    var onClickContract = this.getAttribute("bz-onclick");
+    var parsedOnClickContract = JSON.parse(onClickContract);
+    var logClickIdentifierValue = this.getAttribute("bz-logclick");
+
+    if (!parsedOnClickContract) {
+      // The 'bz-onclick' attribute is only added if the trait section is opened (ie, the component is selected).
+      // This ensures that clicking the the component closes the message at a minimum, even if we never render the trait section
+      finalContract = [{
+        trigger: {
+          type: "click"
+        },
+        expression: null,
+        brazeEvents: [{
+          eventType: "REQUEST_IMMEDIATE_DATA_FLUSH"
+        }, {
+          eventType: "CLOSE_MESSAGE"
+        }]
+      }];
+    } else {
+      finalContract = parsedOnClickContract;
+    }
+
+    if (!logClickIdentifierValue) {
+      // Likewise, we need to be able to retrieve the text content of the component, even if it was never opened
+      // and in that case we also need to sanitize it and trim it if needed
+      var sanitizedInput = this.textContent;
+
+      if (sanitizedInput[0] == "$") {
+        sanitizedInput = sanitizedInput.substring(1, 256);
+      } else if (new Blob([sanitizedInput]).size > 479) {
+        // This substring will not guarantee we're below 479 bytes, but will get us closer and then
+        // the back-end will trim to exactly the required size
+        sanitizedInput = sanitizedInput.substring(0, 255);
+      }
+
+      logClickIdentifierValue = sanitizedInput;
+    } // As a business rule, always log a click - either the component text or the saved value from the trait
+
+
+    finalContract[0].brazeEvents.unshift({
+      eventType: "LOG_CLICK",
+      value: {
+        operator: "LITERAL_VALUE",
+        value: logClickIdentifierValue
+      }
+    });
+    var element = this;
+    window.htmlEventTraitHandler.addEventListenerByEventTraits(element, finalContract);
+  }.bind(items[i]))();
+}</script>
+
+</body>
+</html>
